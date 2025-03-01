@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import com.example.exception.EntityNotFoundException;
 import com.example.exception.NotEnoughBalanceException;
 import com.example.model.Wallet;
 import com.example.repository.WalletRepository;
@@ -20,6 +21,13 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public Optional<Wallet> getWalletById(UUID walletId) {
         return walletRepository.findById(walletId);
+    }
+
+    @Override
+    public Wallet getWallet(UUID walletId) {
+        return getWalletById(walletId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("Wallet with id %s not found", walletId)));
     }
 
     @Override

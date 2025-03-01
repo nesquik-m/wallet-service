@@ -10,6 +10,8 @@ public interface WalletService {
 
     Optional<Wallet> getWalletById(UUID walletId);
 
+    Wallet getWallet(UUID walletId);
+
     Wallet createWallet(UUID walletId);
 
     void deposit(Wallet wallet, BigDecimal amount);
