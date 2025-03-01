@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: wallet-service
+
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    hikari:
+      schema: wallet_schema
+      connection-init-sql: CREATE SCHEMA IF NOT EXISTS wallet_schema
+      connection-timeout: 10000
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+        hbm2ddl:
+          auto: none
+    hibernate:
+      ddl-auto: none
+
+  liquibase:
+    enabled: true
