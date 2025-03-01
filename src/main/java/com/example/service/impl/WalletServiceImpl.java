@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -17,11 +18,12 @@ public class WalletServiceImpl implements WalletService {
     private final WalletRepository walletRepository;
 
     @Override
-    public Wallet getWalletById(UUID walletId) {
-        return walletRepository.findById(walletId).orElseGet(() -> createWallet(walletId));
+    public Optional<Wallet> getWalletById(UUID walletId) {
+        return walletRepository.findById(walletId);
     }
 
-    private Wallet createWallet(UUID walletId) {
+    @Override
+    public Wallet createWallet(UUID walletId) {
         return walletRepository.save(new Wallet(walletId, BigDecimal.ZERO));
     }
 

@@ -25,15 +25,12 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional(noRollbackFor = NotEnoughBalanceException.class)
     public void createTransaction(Transaction transaction) {
-        Wallet wallet = walletService.getWalletById(transaction.getWalletId());
-        transaction.setWallet(wallet);
         transactionRepository.save(transaction);
-
         try {
             if (transaction.getOperationType().equals(OperationType.DEPOSIT)) {
-                handleDepositOperation(transaction, wallet);
+                handleDepositOperation(transaction, transaction.getWallet());
             } else {
-                handleWithdrawOperation(transaction, wallet);
+                handleWithdrawOperation(transaction, transaction.getWallet());
             }
         } finally {
             transactionRepository.save(transaction);
