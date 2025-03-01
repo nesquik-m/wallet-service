@@ -1,1 +1,39 @@
 # ==========================================[WALLET]==========================================
+
+### Пополнение
+
+POST http://localhost:8080/api/v1/wallet
+Content-Type: application/json
+
+{
+  "walletId": "{{$uuid}}",
+  "operationType": "DEPOSIT",
+  "amount": 10000
+}
+
+> {%
+    const requestBody = JSON.parse(request.body());
+    client.global.set("walletId", requestBody.walletId);
+    console.log("Глобальные переменные успешно сохранены: " + requestBody.walletId);
+%}
+### Списание
+
+POST http://localhost:8080/api/v1/wallet
+Content-Type: application/json
+
+{
+  "walletId": "{{walletId}}",
+  "operationType": "WITHDRAW",
+  "amount": 20000
+}
+
+### Списание
+
+POST http://localhost:8080/api/v1/wallet
+Content-Type: application/json
+
+{
+  "walletId": "dc1aa896-8bae-48cd-adb0-1aad772131d0",
+  "operationType": "WITHDRAW",
+  "amount": 2000
+}

@@ -1,6 +1,5 @@
-package com.example.model;
+package com.example.dto.response;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,17 +8,14 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Entity
-@Table(name = "wallets")
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Wallet {
+public class WalletResponse {
 
-    @Id
-    private UUID id;
+    private UUID walletId;
 
-    private BigDecimal balance;
+    private BigDecimal amount;
 
 }
