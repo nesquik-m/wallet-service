@@ -27,7 +27,7 @@ public class WalletController {
     private final WalletMapper walletMapper;
 
     @PostMapping
-    public TransactionResponse processOperation(@Valid @RequestBody WalletTransactionRequest request) {
+    public TransactionResponse createTransaction(@Valid @RequestBody WalletTransactionRequest request) {
         return transactionService.createTransaction(transactionMapper.mapToTransaction(request));
     }
 
