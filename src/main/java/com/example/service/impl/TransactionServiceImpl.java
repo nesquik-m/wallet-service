@@ -1,8 +1,10 @@
 package com.example.service.impl;
 
+import com.example.dto.response.TransactionResponse;
 import com.example.enums.OperationType;
 import com.example.enums.TransactionStatus;
 import com.example.exception.NotEnoughBalanceException;
+import com.example.mapper.TransactionMapper;
 import com.example.model.Transaction;
 import com.example.model.Wallet;
 import com.example.repository.TransactionRepository;
@@ -22,9 +24,11 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final WalletService walletService;
 
+    private final TransactionMapper transactionMapper;
+
     @Override
     @Transactional(noRollbackFor = NotEnoughBalanceException.class)
-    public void createTransaction(Transaction transaction) {
+    public TransactionResponse createTransaction(Transaction transaction) {
         transactionRepository.save(transaction);
         try {
             if (transaction.getOperationType().equals(OperationType.DEPOSIT)) {
@@ -35,6 +39,7 @@ public class TransactionServiceImpl implements TransactionService {
         } finally {
             transactionRepository.save(transaction);
         }
+        return transactionMapper.mapToTransactionResponse(transaction);
     }
 
     private void handleDepositOperation(Transaction transaction, Wallet wallet) {

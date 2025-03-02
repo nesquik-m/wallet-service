@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.dto.response.TransactionResponse;
 import com.example.dto.response.WalletResponse;
 import com.example.mapper.TransactionMapper;
 import com.example.dto.request.WalletTransactionRequest;
@@ -26,9 +27,8 @@ public class WalletController {
     private final WalletMapper walletMapper;
 
     @PostMapping
-    public String processOperation(@Valid @RequestBody WalletTransactionRequest request) {
-        transactionService.createTransaction(transactionMapper.mapToTransaction(request));
-        return "success";
+    public TransactionResponse processOperation(@Valid @RequestBody WalletTransactionRequest request) {
+        return transactionService.createTransaction(transactionMapper.mapToTransaction(request));
     }
 
     @GetMapping("/{WALLET_UUID}")

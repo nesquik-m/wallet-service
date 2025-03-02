@@ -1,9 +1,10 @@
 package com.example.service;
 
+import com.example.dto.response.TransactionResponse;
 import com.example.model.Transaction;
 
 public interface TransactionService {
 
-    void createTransaction(Transaction transaction);
+    TransactionResponse createTransaction(Transaction transaction);
 
 }

@@ -8,7 +8,7 @@ Content-Type: application/json
 {
   "walletId": "{{$uuid}}",
   "operationType": "DEPOSIT",
-  "amount": 10000
+  "amount": 7000
 }
 
 > {%
@@ -25,7 +25,7 @@ Content-Type: application/json
 {
   "walletId": "{{walletId}}",
   "operationType": "WITHDRAW",
-  "amount": 20000
+  "amount": 2000
 }
 
 ### Получить баланс кошелька (кошелек существует)

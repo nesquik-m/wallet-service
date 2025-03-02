@@ -29,7 +29,7 @@ public class GlobalExceptionAdvice {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorResponse> entityNotFound(EntityNotFoundException ex) {
-        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, ErrorCode.OBJECT_NOT_FOUND, ex.getMessage());
+        return buildErrorResponse(ex, HttpStatus.NOT_FOUND, ErrorCode.OBJECT_NOT_FOUND, ex.getMessage());
     }
 
     @ExceptionHandler(NotEnoughBalanceException.class)
