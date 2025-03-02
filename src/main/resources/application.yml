@@ -3,13 +3,13 @@ spring:
     name: wallet-service
 
   datasource:
-    url: ${DATABASE_URL}
+    url: jdbc:postgresql://${DATABASE_HOST:postgres}:${DATABASE_PORT:5432}/${DATABASE_NAME:postgres}
     username: ${POSTGRES_USER}
     password: ${POSTGRES_PASSWORD}
     hikari:
-      schema: wallet_schema
-      connection-init-sql: CREATE SCHEMA IF NOT EXISTS wallet_schema
-      connection-timeout: 10000
+      schema: ${DATABASE_SCHEMA:wallet_schema}
+      connection-init-sql: CREATE SCHEMA IF NOT EXISTS ${DATABASE_SCHEMA:wallet_schema}
+      connection-timeout: ${DATABASE_CONNECTION_TIMEOUT:10000}
 
   jpa:
     properties:

@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class WalletTransactionRequest {
+public class TransactionRequest {
 
     @NotNull(message = "walletId cannot be null")
     private UUID walletId;

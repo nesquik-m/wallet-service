@@ -1,6 +1,6 @@
 package com.example.mapper;
 
-import com.example.dto.request.WalletTransactionRequest;
+import com.example.dto.request.TransactionRequest;
 import com.example.dto.response.TransactionResponse;
 import com.example.enums.TransactionStatus;
 import com.example.model.Transaction;
@@ -14,7 +14,7 @@ public class TransactionMapper {
 
     private final WalletService walletService;
 
-    public Transaction mapToTransaction(WalletTransactionRequest request) {
+    public Transaction mapToTransaction(TransactionRequest request) {
         return Transaction.builder()
                 .wallet(walletService.getWalletById(request.getWalletId())
                         .orElseGet(() -> walletService.createWallet(request.getWalletId())))

@@ -3,7 +3,7 @@ package com.example.controller;
 import com.example.dto.response.TransactionResponse;
 import com.example.dto.response.WalletResponse;
 import com.example.mapper.TransactionMapper;
-import com.example.dto.request.WalletTransactionRequest;
+import com.example.dto.request.TransactionRequest;
 import com.example.mapper.WalletMapper;
 import com.example.service.TransactionService;
 import com.example.service.WalletService;
@@ -27,7 +27,7 @@ public class WalletController {
     private final WalletMapper walletMapper;
 
     @PostMapping
-    public TransactionResponse createTransaction(@Valid @RequestBody WalletTransactionRequest request) {
+    public TransactionResponse createTransaction(@Valid @RequestBody TransactionRequest request) {
         return transactionService.createTransaction(transactionMapper.mapToTransaction(request));
     }
 

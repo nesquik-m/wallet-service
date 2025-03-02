@@ -2,7 +2,7 @@
 package com.example.controller;
 
 import com.example.AbstractTest;
-import com.example.dto.request.WalletTransactionRequest;
+import com.example.dto.request.TransactionRequest;
 import com.example.dto.response.TransactionResponse;
 import com.example.dto.response.WalletResponse;
 import com.example.enums.OperationType;
@@ -32,7 +32,7 @@ class WalletControllerTest extends AbstractTest {
         void shouldCreateDepositTransactionAndReturn200() throws Exception {
             OperationType operationType = OperationType.DEPOSIT;
 
-            WalletTransactionRequest request = WalletTransactionRequest.builder()
+            TransactionRequest request = TransactionRequest.builder()
                     .walletId(WALLET_UUID_NOT_FOUND)
                     .operationType(operationType)
                     .amount(DEPOSIT_AMOUNT)
@@ -63,7 +63,7 @@ class WalletControllerTest extends AbstractTest {
             UUID walletId = WALLET_UUID_EXISTS;
             OperationType operationType = OperationType.WITHDRAW;
 
-            WalletTransactionRequest request = WalletTransactionRequest.builder()
+            TransactionRequest request = TransactionRequest.builder()
                     .walletId(walletId)
                     .operationType(operationType)
                     .amount(WITHDRAW_AMOUNT)
@@ -101,7 +101,7 @@ class WalletControllerTest extends AbstractTest {
         void shouldFailWithdrawTransactionDueToInsufficientFundsAndReturn402() throws Exception {
             OperationType operationType = OperationType.WITHDRAW;
 
-            WalletTransactionRequest request = WalletTransactionRequest.builder()
+            TransactionRequest request = TransactionRequest.builder()
                     .walletId(WALLET_UUID_EXISTS)
                     .operationType(operationType)
                     .amount(WITHDRAW_NOT_ENOUGH_AMOUNT)
