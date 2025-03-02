@@ -1,6 +1,7 @@
 package com.example.exception;
 
 import com.example.enums.ErrorCode;
+import com.example.enums.OperationType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.List;
+import java.util.Arrays;
 
 @RestControllerAdvice
 @Slf4j
@@ -39,20 +40,21 @@ public class GlobalExceptionAdvice {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> unknownType(HttpMessageNotReadableException ex) {
-        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, ErrorCode.UNKNOWN_OPERATION_TYPE,
-                "Invalid operation type. Allowed values: WITHDRAW, DEPOSIT.");
+        String operationTypes = String.join(", ",
+                Arrays.stream(OperationType.values())
+                .map(OperationType::name)
+                .toList());
+        return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, ErrorCode.INVALID_DATA,
+                String.format("Invalid operation type. Allowed values: %s.", operationTypes));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> notValid(MethodArgumentNotValidException ex) {
         BindingResult bindingResult = ex.getBindingResult();
-        List<String> errorMessages = bindingResult.getAllErrors()
-                .stream()
+        String errorMessage = String.join("; ",
+                bindingResult.getAllErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                .toList();
-
-        String errorMessage = String.join("; ", errorMessages);
-
+                .toList());
         return buildErrorResponse(ex, HttpStatus.BAD_REQUEST, ErrorCode.INVALID_DATA, errorMessage);
     }
 
