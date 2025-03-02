@@ -1,14 +1,34 @@
 services:
 
+  wallet-service:
+    container_name: wallet-service
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_SCHEMA: ${DATABASE_SCHEMA}
+      DATABASE_CONNECTION_TIMEOUT: ${DATABASE_CONNECTION_TIMEOUT}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - wallet-network
+
   postgres:
-    image: postgres:17.2
+    image: postgres:17.4
     container_name: postgres-wallet
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
     ports:
-      - "5435:5432"
+      - "5436:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
